@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>HOME</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://localhost/bootstrap/css/bootstrap.min.css">
+<style>
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 95%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+<script>
+function opene(id)
+{
+  var url="http://localhost/wedding_planer/"+id+".html";
+  window.open(url);
+}
+function hide() {
+  var modal = document.getElementById("myModal");
+  modal.style.display = "none";
+}
+
+  function ok(id){
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
+    var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("ok").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET","change.php?id="+id, true);
+  xhttp.send();
+  }
+  function view(opt){
+    var id=document.getElementById('id').value;
+    var ltype=document.getElementById('ltype').value;
+    var status=document.getElementById('status').value;
+    var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("list").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET","list.php?opt="+opt+"&id="+id+"&ltype="+ltype+"&status="+status, true);
+  xhttp.send();
+  }
+  function deletes(mobile)
+  {
+ document.getElementById('app').innerHTML="";
+ var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("conatin1").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET","deleteapp.php?m="+mobile, true);
+  xhttp.send();
+  }
+    function admin(){
+    var u=document.getElementById('username').value;
+    var p=document.getElementById('password').value;
+    var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("conatin1").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET","adminlogin.php?m="+u+"&p="+p, true);
+  xhttp.send();
+    }
+function submit()
+{
+     
+    var u=document.getElementById('username').value;
+    var p=document.getElementById('password').value;
+       if(u.length==0 ||p.length==0)
+       {
+         alert("Null Input!");
+       }    
+       else{
+        var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("conatin1").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET","userlogin.php?m="+u+"&p="+p, true);
+  xhttp.send();
+       }
+    }
+  
+function loginu(m)
+{
+    var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("contain").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET","user.php?m="+m, true);
+  xhttp.send();
+}
+function logina()
+{
+    alert("Login Successfuly!");
+    var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("contain").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET","admin.html", true);
+  xhttp.send();
+}
+function ivp(){
+alert("Invalid Password");
+}
+function alredy(){
+alert("Your alredy apply for another loan!");
+}
+function ivu(){
+alert("Invalid Username");
+}
+function applied(m){
+alert("sucsessfuly applied");
+loginu(m);
+}
+function apply()
+{
+    
+    var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("apply").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET","apply.html", true);
+  xhttp.send();
+  
+}
+function logout(){
+    window.location.reload()
+}
+function applycard()
+{
+
+    var table = document.getElementById( "table" );
+    var m=table.rows[0].cells[2].innerHTML;
+    m= m.slice(4,);
+    var bridegroom=document.getElementById('bridegroom').value;
+    var bride=document.getElementById('bride').value;
+    var place=document.getElementById('place').value;
+    var city=document.getElementById('city').value;
+    var day=document.getElementById('day').value;
+    var date=document.getElementById('date').value;
+    var time=document.getElementById('time').value;
+    var type=document.getElementById('ltype').value;
+    if(bridegroom.length==0 || bride.length==0 || place.length==0 || city.length==0 || day.length==0 || date.length==0 || time.length==0 ){
+      alert("Null Input!");
+    }
+    else
+    {
+    var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("conatin1").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET","apply.php?m="+m+"&t="+type+"&bg="+bridegroom+"&b="+bride+"&p="+place+"&c="+city+"&d="+day+"&dt="+date+"&tm="+time, true);
+  xhttp.send();
+    }
+}
+</script>
+</head>
+<body style="background-image:url(cg2.gif);">
+        <div style="background:rgba(0, 0, 0, 0.5);height:50px;;">
+
+                <center><h1 style="color:white;"><img src="icon.png" width="30px" height="30px" style="float:left;margin:10px 5px;">Wedding Card Planer</h1></center>
+                </div>
+                <div id="contain" class="container-fluid">
+
+                        <div class="row" >
+                        <div class="col-sm-4"">
+                            <div style="background-color: rgba(219, 203, 157, 0.568);min-height:450px;margin: 35px 10px;border-radius: 5px;">
+                         <center> <img src="user.png" width="100px" style="margin:-25px 0px 0px 0px;"> </center>
+                         <br>
+                         <br>
+
+                         <br>       
+                            <center><table style="width: 90%">
+                            <tr>
+                                <td>  Username </td>
+                                <td> <br><br>
+                                    <input type="text" id="username" style="width: 70%;border-radius: 5px;">
+                                    <br> <lable style="color: red">Use mobile number as username</lable> 
+                                </td>
+                            </tr>
+                            <tr>
+                                    <td> <br> Password </td>
+                                    <td> <br>
+                                        <input type="password" id="password" style="width: 70%;border-radius: 5px;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                        <td> <br>  </td>
+                                        <td> <br>
+                                            <button id="l" onclick="submit()" style="background-color: rgb(72, 10, 241);border-radius:5px;color:white;padding:5px;">Login</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                            <td></td>
+                                            <td><br><a href="register.html">New Registration </a></td>
+                                        </tr>
+                         </table>
+                        
+                         
+                        </center>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-8">
+                            <div style="background-color: rgba(219, 203, 157, 0.568);min-height:450px;margin: 35px 10px;border-radius: 5px;padding: 0% 2px;">
+                               <center> <h1 style="background-color: rgb(218, 161, 55);color:white;border-radius: 5px;margin: 0% -2px;">About</h1></center>
+                               <h4>Instant Create Card | Easy Way |</h4>
+                               <p>Add a personal touch to your wedding invitation with a custom design in HTML! Choose from our selection of beautiful layouts to create an invitation worthy of the occasion.</p>
+                        <br></div>
+                </div>
+                </div>
+                </div>
+                        <div style="background:rgba(0, 0, 0, 0.5);height:50px;">
+                                <center><h1 style="color:white;">Thank You</h1></center>
+                        </div>
+                        <div id="conatin1"></div>
+                        <div id="dumdiv" align="center" style=" font-size: 10px;color: #dadada;">
+                            <a id="dum" style="padding-right:0px; text-decoration:none;color: green;text-align:center;" href=""></a>
+                          </div>
+                          <div id="myModal" class="modal">
+
+                              <!-- Modal content -->
+                              <div class="modal-content">
+                                <span onclick="hide()" class="close">&times;</span>
+                                <div id="ok"><center> <img src="a.gif" ></center></div>
+                                
+                              </div>
+                            
+                            </div>
+</body>
+</html>
